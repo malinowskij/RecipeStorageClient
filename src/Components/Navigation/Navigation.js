@@ -66,7 +66,7 @@ class Navigation extends Component {
               </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem>
-              <Link style={{ color: "black" }} to="/add/recipe">Dodaj przepis!</Link>
+              <Link style={{ color: "black" }} to="/recipe/add">Dodaj przepis!</Link>
             </DropdownItem>
             <DropdownItem>
               Option 2

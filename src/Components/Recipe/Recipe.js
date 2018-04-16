@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Container, Row, Col
+  Container, Row, Col, Button
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PhotoGallery from './PhotoGallery/PhotoGallery';
@@ -8,6 +8,9 @@ import Rating from '../Rating/Rating';
 import CommentForm from '../Comment/CommentForm/CommentForm';
 import CommentList from '../Comment/CommentList/CommentList';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert2';
+import Redirect from 'react-router-dom/Redirect';
 
 
 class Recipe extends Component {
@@ -15,6 +18,7 @@ class Recipe extends Component {
     recipe: null,
     rating: null,
     comments: null,
+    redirect: false
   }
 
   componentDidMount() {
@@ -46,7 +50,44 @@ class Recipe extends Component {
 
   }
 
+  deleteDialog = () => {
+    swal({
+      title: 'Jestes pewny?',
+      text: "Nie będziesz mógl tego cofnąć!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak, usuń!'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteRecipe();
+      }
+    })
+  }
+
+  deleteRecipe = () => {
+    const bearer = "Bearer " + localStorage.getItem('token');
+    axios.delete("http://localhost:54893/api/Recipes/" + this.state.recipe.ID, {
+      headers: {
+        "Authorization": bearer
+      }
+    }).then(response => {
+      swal({
+        title: 'Usunieto!',
+        text: 'Twój przepis zostal usunięty!',
+        type: 'success'
+      }).then(result => {
+        console.log("zmiana")
+        this.setState({ redirect: true });
+      })
+    }).catch(err => console.log(err));
+  }
+
   render() {
+    if (this.state.redirect) 
+      return <Redirect to="/" />
+
     if (this.state.recipe === null)
       return <Container>Loading...</Container>
 
@@ -65,6 +106,20 @@ class Recipe extends Component {
     var gallery = null;
     if (this.state.recipe.Images.length > 1)
       gallery = <PhotoGallery images={this.state.recipe.Images} />
+
+    var controlPanel = null;
+    if (localStorage.getItem("userName") === this.state.recipe.ApplicationUser.UserName) {
+      controlPanel = (
+        <Row>
+          <Col md="2">
+            <Link className="btn btn-warning" to={"/recipe/edit/" + this.state.recipe.ID}>Edytuj</Link>
+          </Col>
+          <Col md="2">
+            <Button color="danger" onClick={this.deleteDialog}>Usuń</Button>
+          </Col>
+        </Row>
+      );
+    }
 
     return (
       <Container>
@@ -103,9 +158,10 @@ class Recipe extends Component {
         <Row>
           <Col md="6">
             <p><em>Autor: {this.state.recipe.ApplicationUser.FirstName + " " + this.state.recipe.ApplicationUser.LastName}</em></p>
+            {controlPanel}
           </Col>
         </Row>
-        <CommentForm recipeID={this.state.recipe.ID} loadComments={this.loadComments}  />
+        <CommentForm recipeID={this.state.recipe.ID} loadComments={this.loadComments} />
         <CommentList comments={this.state.comments} />
       </Container>
     );

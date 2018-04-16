@@ -20,11 +20,12 @@ class App extends Component {
           <Navigation />
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/recipe/:id" component={Recipe} />
           <Route path="/login" component={Auth} />
           <Route path="/Logout" component={Logout} />
           <Route path="/register" component={Register} />
-          <Route path="/add/recipe/" component={RecipeForm} />
+          <Route path="/recipe/add" component={RecipeForm} />
+          <Route path="/recipe/:id(\d+)" component={Recipe} />
+          <Route path="/recipe/edit/:id(\d+)" component={RecipeForm} />
           <div>
             Footer
           </div>

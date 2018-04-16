@@ -78,6 +78,9 @@ class StepThree extends Component {
             </ListGroupItem>);
         })
 
+        var endButton = "Następny krok";
+        if (this.props.edit !== null)
+            endButton = "Edytuj";
         return (
             <div>
                 <h2>Zdefiniuj kroki!</h2>
@@ -111,7 +114,7 @@ class StepThree extends Component {
                         </Col>
 
                         <Col md="6">
-                            <input type="submit" value="Następny krok" className="btn btn-block btn-primary" />
+                            <input type="submit" value={endButton} className="btn btn-block btn-primary" />
                         </Col>
                     </Row>
                 </form>

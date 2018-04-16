@@ -37,7 +37,19 @@ class StepOne extends Component {
         }
     }
 
-    componentDidMount() {
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.formData !== undefined) {
+            this.setState({
+                name: nextProps.formData.Name,
+                description: nextProps.formData.Description,
+                preparationTime: nextProps.formData.PreparationTimeInMinutes,
+                cookTime: nextProps.formData.CookTimeInMinutes,
+                recipeCategory: nextProps.formData.RecipeCategoryID,
+            });
+        }
+    }
+
+    componentWillMount() {
         axios
             .get("http://localhost:54893/api/RecipeCategories")
             .then(response => {
