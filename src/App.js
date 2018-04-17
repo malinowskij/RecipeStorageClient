@@ -10,6 +10,7 @@ import Auth from './Components/Auth/Auth';
 import Logout from './Components/Auth/Logout';
 import Register from './Components/Auth/Register';
 import RecipeForm from './Components/Recipe/Form/RecipeForm';
+import RecipeCatalog from './Components/RecipeCatalog/RecipeCatalog';
 
 class App extends Component {
 
@@ -23,6 +24,8 @@ class App extends Component {
           <Route path="/login" component={Auth} />
           <Route path="/Logout" component={Logout} />
           <Route path="/register" component={Register} />
+          <Route path="/catalog" component={RecipeCatalog} />
+          <Route path="/catalog/:id(\d+)" component={RecipeCatalog} />
           <Route path="/recipe/add" component={RecipeForm} />
           <Route path="/recipe/:id(\d+)" component={Recipe} />
           <Route path="/recipe/edit/:id(\d+)" component={RecipeForm} />

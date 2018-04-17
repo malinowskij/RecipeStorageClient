@@ -14,7 +14,7 @@ class NewestRecipes extends Component {
 
     componentDidMount() {
         axios
-            .get("http://localhost:54893/api/Recipes")
+            .get("http://localhost:54893/api/Recipes/Last/4")
             .then(response => {
                 const recipes = response.data;
                 this.setState({ recipes });

@@ -282,7 +282,6 @@ class RecipeForm extends Component {
         else if (this.state.showStepFour && this.state.editedID === null)
             step = <StepFour updateData={this.updateDataStepFour} formData={this.state.dataFromStepFour} />
 
-        console.log(this.state.dataFromStepFour)
         return (
             <Container>
                 <Row>

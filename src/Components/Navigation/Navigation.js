@@ -63,18 +63,18 @@ class Navigation extends Component {
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle nav caret>
             Moje akcje
-              </DropdownToggle>
+          </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem>
               <Link style={{ color: "black" }} to="/recipe/add">Dodaj przepis!</Link>
             </DropdownItem>
             <DropdownItem>
               Option 2
-                </DropdownItem>
+            </DropdownItem>
             <DropdownItem divider />
             <DropdownItem>
               Reset
-                  </DropdownItem>
+            </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       );
@@ -98,6 +98,13 @@ class Navigation extends Component {
               </NavItem>
               {logout}
               {register}
+              <NavItem>
+                <Link style={linkStyle} to="/catalog">
+                  <NavLink>
+                    Katalog przepisów
+                  </NavLink>
+                </Link>
+              </NavItem>
               {userActions}
               <NavItem>
                 <Link style={linkStyle} to="/about">
