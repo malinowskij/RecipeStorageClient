@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 const recipeThumb = (props) => {
     var recipe = "Czekaj...";
     if (props.recipe !== undefined && props.recipe.Images[0] !== undefined) {
-        console.log(props.recipe);
         recipe = (
             <Link to={"/recipe/" + props.recipe.ID}>
                 <Card>
